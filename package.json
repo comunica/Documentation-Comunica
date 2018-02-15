@@ -1,0 +1,11 @@
+{
+  "name": "documentation-comunica",
+  "version": "0.0.1",
+  "description": "Comunica documentation",
+  "repository": "git@github.com:joachimvh/Documentation-Components.js.git",
+  "license": "MIT",
+  "dependencies": {
+    "remark": "^8.0.0",
+    "remark-html": "^6.0.1"
+  }
+}

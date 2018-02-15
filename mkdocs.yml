@@ -1,0 +1,14 @@
+pages:
+  - Home: 'index.md'
+  - Design: 'design.md'
+  - Core Components: 'core.md'
+  - Query Operations: 'query-operations.md'
+  - Writing a module: 'write-module.md'
+  - Development Notes: 'development.md'
+
+site_name: Comunica Documentation
+
+markdown_extensions:
+  - admonition
+
+theme: readthedocs
