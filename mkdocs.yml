@@ -3,8 +3,13 @@ pages:
   - Design: 'design.md'
   - Core Components: 'core.md'
   - Query Operations: 'query-operations.md'
-  - Writing a module: 'write-module.md'
   - Development Notes: 'development.md'
+  - Tutorials:
+    - Executing a SPARQL query: 'tutorials/sparql.md'
+    - Including Comunica in your project: 'tutorials/including-comunica.md'
+    - Running a Comunica project: 'tutorials/running-comunica.md'
+    - Writing a module: 'tutorials/write-module.md'
+    - Writing a configuration: 'tutorials/configuration.md'
 
 site_name: Comunica Documentation
 
