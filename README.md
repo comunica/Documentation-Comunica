@@ -1,5 +1,5 @@
 # Comunica Documentation
-This repo contains the documentation for [Comunica](https://github.com/rubensworks/comunica).
+This repo contains the documentation for [Comunica](https://github.com/comunica/comunica).
 
 This documentation can be viewed locally by running `mkdocs serve`.
 

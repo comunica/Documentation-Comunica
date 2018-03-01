@@ -3,7 +3,7 @@
 There are 2 options to include Comunica in your project as a dependency:
 
 1. Use one of the pre-composed modules, such as 
-[`actor-init-sparql`](https://github.com/rubensworks/comunica/tree/master/packages/actor-init-sparql).
+[`actor-init-sparql`](https://github.com/comunica/comunica/tree/master/packages/actor-init-sparql).
 2. Composing your own combination of Comunica modules.
 
 The first instance is the easiest one and will usually only require a single install.
@@ -16,7 +16,7 @@ there are a few requirements:
 
 1. A Components.js configuration is required.
 2. All components referenced in the configuration need to be installed (i.e. present in package.json).
-3. The Comunica [Runner](https://github.com/rubensworks/comunica/tree/master/packages/runner)
+3. The Comunica [Runner](https://github.com/comunica/comunica/tree/master/packages/runner)
 module needs to be included as well.
 
 We will not cover how to write a configuration, that can be found [here](configuration.md).

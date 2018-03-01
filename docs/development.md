@@ -17,7 +17,7 @@ The naming strategy of branches is as follows:
 
 ## Issue Strategy
 
-Issues must be assigned to people, and must be progressed using the [GitHub project board](https://github.com/rubensworks/comunica-core/projects/1).
+Issues must be assigned to people, and must be progressed using the [GitHub project board](https://github.com/comunica/comunica-core/projects/1).
 
 Issues progress as follows:
 1. To Do: When the issue is accepted and assigned, but not in progress yet.
