@@ -1,13 +1,15 @@
 # Core components
 
-Here we will describe the 3 core components of Comunica.
-The internal communication of Comunica works by combining those componens:
+![Communication overview](actor-mediator-bus.svg)
+
+There are 3 core components of Comunica.
+The internal communication of Comunica works by combining those components:
 
 1. An Actor requests a response through a Mediator.
 2. The Mediator *tests* all Actors in its Bus.
 3. Every Actor responds with metadata describing the estimated costs for answering the request.
 4. Based on this list of metadata, the Mediator picks the best Actor.
-5. That Actor gets to execute the request.
+5. That Actor executes the request.
 6. The resulting response gets returned to the original request.
 
 ## Actor
@@ -33,9 +35,8 @@ abstract class Actor<I, T, O> {
 ```
 
 With I, T and O corresponding to the expected Input, TestResult and Output formats.
-As can be seen, every Actor has a name (TODO: what did this correspond to again?),
+As can be seen, every Actor has a name,
 and a bus it is subscribed to.
-The interfaces for T and O are empty, meaning there are no restrictions on the format there.
 
 Besides the constructor, there are 2 functions that every Actor has to inherit: *test* and *run*.
 
@@ -45,10 +46,11 @@ which Actor will get to execute a given task.
 For this they base themselves on metadata provided by the subscribed Actors,
 which is provided through the test function.
 The Mediator provides the input of the task to each Actor.
-Each of those Actors than needs to respond with `null`
-if they are unable to provide results for the given input,
-or with a metadata object indicating the costs required to solve that task.
-"Costs" is left vague on purpose, allowing different Mediators to focus on different costs,
+Each of those Actors then needs to respond with a metadata object
+indicating the costs required to solve that task,
+or throw an error if they are unable to provide results for the given input.
+What these "costs" are, is left vague on purpose,
+allowing different Mediators to focus on different costs,
 such as total execution time, # http calls, etc.
 It is the responsibility of the Actor to provide decent estimates here.
 
@@ -56,14 +58,12 @@ The *run* function corresponds to actually executing the task this Actor was mad
 Once a Mediator chooses an Actor, this function will be called with the same input as was provided
 in the *test* call.
 
-TODO: maybe also include corresponding jsonld here? or make separate components section?
-
 ## Bus
 
 A Bus is an aggregation of Actors,
 providing several helper functions.
 Since the tasks of a Bus are quite simple,
-it is usually not needed to extend its functionality
+it is usually not required to extend its functionality
 and can be instantiated directly if a new Bus is required.
 
 ```typescript
@@ -137,3 +137,28 @@ When creating a Mediator, only the *mediateWith* function needs to be overloaded
 This function determines what the *best* Actor is, based on the given metadata.
 Besides that there are no restrictions on how to actually choose this,
 that is completely up to the implementation.
+
+Some examples of Mediators are the
+(Race Mediator)[https://github.com/comunica/comunica/tree/master/packages/mediator-race],
+that picks the first actor that returns a result,
+or the (Number Mediator)[https://github.com/comunica/comunica/tree/master/packages/mediator-number],
+that chooses the Actor with the lowest or highest cost, depending on the configuration.
+
+### Mediator Types
+To define which metadata an Actor returns in their *test* function,
+we make use of Mediator Types.
+These are simple interfaces that determine the type of values
+an Actor returns to a mediator when tested.
+An example of this is
+(mediatortype-time)[https://github.com/comunica/comunica/tree/master/packages/mediatortype-time],
+which contains the following interface:
+
+```typescript
+export interface IMediatorTypeTime extends IActorTest {
+  time?: number;
+}
+```
+
+Meaning that Actors using that mediator type will return a time estimation when polled.
+Actors are not limited to a single Mediator Type,
+multiple types can be combined to provide better metadata.

@@ -32,7 +32,8 @@ How a Mediator does this depends on the implementation.
 For example, this could be based on simply choosing the Actor that responds first,
 or by taking the Actor with the lowest cost estimate (more on this in the Mediator section).
 
-The interfaces for these main 3 components are defined in the `core` module of Comunica.
+The interfaces for these main 3 components are defined in the
+[`core` module](core.md) of Comunica.
 All other modules extend the interfaces provided by `core`.
 
 ## Components.js
