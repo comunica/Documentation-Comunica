@@ -136,10 +136,9 @@ Additionally, the HTTP Bus defined above is set as a default value for the bus p
 in case no other Bus gets assigned.
 
 ## mediatortype-time
-TODO: link to mediator type explanation
 Remember that an Actor has to return metadata when its *test* function gets called.
 In this case, our implementation returns an estimate of how long it will take (in milliseconds).
-To this end, we need a Mediator Type that defines *time*.
+To this end, we need a [Mediator Type](../core.md) that defines *time*.
 The `mediatortype-time` library contains a single file defining that type:
 ```typescript
 import {IActorTest} from "@comunica/core";

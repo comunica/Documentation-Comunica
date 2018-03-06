@@ -66,3 +66,10 @@ greatly reducing the dependencies on each other and allowing for easier interope
 E.g., an update that provides faster results for triple existence checks can now be used
 by adding a module that handles those kinds of patterns,
 instead of having to rewrite some of the core functionality.
+
+## Naming Conventions
+We use the following naming convenient for (NPM) modules:
+* Bus types: `@comunica/bus-[name-of-bus-type]`
+* Mediator types: `@comunica/mediatortype-[name-of-mediator-type]`
+* Mediators: `@comunica/mediator-[name-of-mediator]`
+* Actors: `@comunica/actor-[name-of-bus-type]-[name-of-actor]`

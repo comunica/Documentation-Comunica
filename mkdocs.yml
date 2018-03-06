@@ -1,9 +1,6 @@
 pages:
   - Home: 'index.md'
-  - Design: 'design.md'
   - Core Components: 'core.md'
-  - Query Operations: 'query-operations.md'
-  - Development Notes: 'development.md'
   - Tutorials:
     - Executing a SPARQL query: 'tutorials/sparql.md'
     - Including Comunica in your project: 'tutorials/including-comunica.md'
@@ -18,6 +15,7 @@ pages:
     - Metadata extractors: 'actors/metadata.md'
     - Quad pattern resolvers: 'actors/quads.md'
     - Serialization actors: 'actors/serialization.md'
+  - Development Notes: 'development.md'
 
 site_name: Comunica
 
