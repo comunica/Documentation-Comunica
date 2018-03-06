@@ -11,7 +11,7 @@ pages:
     - Writing a module: 'tutorials/write-module.md'
     - Writing a configuration: 'tutorials/configuration.md'
 
-site_name: Comunica Documentation
+site_name: Comunica
 
 markdown_extensions:
   - admonition

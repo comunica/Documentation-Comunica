@@ -2,11 +2,11 @@
 
 Here we will provide an example of a Comunica module,
 showing all the components necessary so a module can be used.
-We will use a simple HTTP module, which takes an URL and optional metadata as input,
+We will create a simple HTTP module, which takes an URL and optional metadata as input,
 and returns a response stream together with the resulting metadata.
 
 If a module ever wants to do an HTTP call, it can't call our HTTP module directly,
-it has to call a Mediator that has a Bus containing one or more HTTP modules.
+it has to call a Mediator that has a Bus containing one or more HTTP Actors.
 Since these would all be contained in the same Bus,
 it is important that they accept the same input and produce the same kind of output.
 To this end, before actually implementing an HTTP module,
@@ -14,10 +14,17 @@ we first have to define what an HTTP module would look like,
 so all implementations can make use of that interface.
 
 For comunica, the `bus-http` contains the relevant interfaces (and a default HTTP bus),
-while `actor-http-node-fetch` contains an implementation, making use of the `node-fetch` library.
+while `actor-http-node-fetch` contains an implementation of an HTTP actor,
+making use of the `node-fetch` library.
+Some of the code in this tutorial will be simplified.
 
 ## bus-http
-Again, some of the code will be simplified.
+All code for this module can be found
+[here](https://github.com/comunica/comunica/tree/master/packages/bus-http).
+This is the module that will define what all HTTP actors should accept as input/output.
+Should you want to write a module that differs from the interfaces that already exist,
+you would first have to write such a bus module defining your new interfaces.
+
 The following are the TypeScript interfaces found in this module:
 
 ### Input interface
@@ -49,7 +56,7 @@ export interface IBody {
 Similarly, the IActorHttpOutput interface defines what the output should look like.
 In this case, it is an extension of both `IActorOutput`,
 which is required for all output interfaces,
-and the `IBody` interface (which is specific for this case).
+and the `IBody` interface (which is specific for the HTTP case).
 
 ### Abstract class
 ```typescript
@@ -63,8 +70,9 @@ Those two interfaces defined before allow us to define the abstract `ActorHttp` 
 Note that the more specific generics are used now to extend the `Actor` base class.
 The original `IActorTest` is still used though, allowing specific implementations
 to decide independently which cost interfaces they can support.
+(TODO: link to cost interfaces explanation).
 This is the class that defines what all HTTP modules will look like:
-if someone writes an HTTP module they should inherit this class
+if someone writes an HTTP module they should inherit from this class
 (or write a new abstract class and accept that it will be incompatible with other HTTP modules).
 
 ### Bus
@@ -120,14 +128,15 @@ allowing it to be used by the `components.js` library.
 }
 ```
 
-An in-depth description of these configuration files can be found in the components.js documentation.
+An in-depth description of these configuration files can be found in the components.js
+[documentation](http://componentsjs.readthedocs.io/en/latest/).
 This file defines what could already be seen in the TypeScript example above,
 while the `requireElement` value specifically points to the TypeScript file itself.
 Additionally, the HTTP Bus defined above is set as a default value for the bus parameter,
 in case no other Bus gets assigned.
 
 ## mediatortype-time
-TODO: should have defined mediator types already
+TODO: link to mediator type explanation
 Remember that an Actor has to return metadata when its *test* function gets called.
 In this case, our implementation returns an estimate of how long it will take (in milliseconds).
 To this end, we need a Mediator Type that defines *time*.
@@ -169,13 +178,13 @@ export class ActorHttpNodeFetch extends ActorHttp {
 
 All required functions have been overloaded and the `IMediatorTypeTime` is used as Mediator type.
 The *test* function returns the expected type of metadata
-(although the estimate is not that accurate...),
+(although in this case the estimate is not that useful),
 while the *run* function returns the result of `node-fetch`,
 which itself has an output that matches what is expected.
 
-Besides that the class still has to be defined in the `components.js` format
+The class also has to be defined in the `components.js` format
 so it can be integrated with the rest of the system.
-But that configuration is also quite standard:
+This configuration is quite similar to the others:
 
 ```json
 {
@@ -202,7 +211,7 @@ But that configuration is also quite standard:
 ```
 
 The actual implementation doesn't differ much from the abstract class,
-meaning that the interface itself also doesn't differ that much.
+meaning that the interface requires few changes.
 
 ## Summary
 Writing a new module for Comunica is quite easy if there already is an existing interface:
