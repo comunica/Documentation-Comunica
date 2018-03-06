@@ -3,18 +3,21 @@
 This document provides an overview of the comunica project.
 
 ## Overview
-
 Comunica provides a way to create a program by combining multiple independent building blocks.
-These building blocks get linked together based on config files,
+These building blocks get linked together based on configuration files,
 as defined by [Components.js](https://www.npmjs.com/package/lsd-components).
 The initial goal of Comunica is to provide a modular implementation
 of a [Triple Pattern Fragments Client](http://linkeddatafragments.org/software/),
-But the core can be used for all kinds of projects.
+but the core can be used for all kinds of projects.
 Additionally, new modules can be added to support more than just the basic TPF implementation.
 
 ## Building blocks
+![Communication overview](actor-mediator-bus.svg)
+
 The Comunica building blocks are called *Actors*.
 These Actors define the format of the input they accept and the corresponding output they produce.
+
+
 Actors communicate with each other through *Buses*.
 A Bus combines all Actors that support the same input and output format,
 and allows sending messages to all Actors registered to that Bus.
@@ -39,7 +42,7 @@ This way the components can be built (and linked) independently.
 For a full explanation of how this works we refer to the corresponding
 [documentation](http://componentsjs.readthedocs.io/en/latest/).
 
-All config files are written in RDF, specifically JSON-LD,
+All configuration files are written in RDF, specifically JSON-LD,
 allowing people more familiar with JSON than RDF to also quickly pick up the framework.
 
 Several config files are required when using Components.js:
