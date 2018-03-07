@@ -139,9 +139,9 @@ Besides that there are no restrictions on how to actually choose this,
 that is completely up to the implementation.
 
 Some examples of Mediators are the
-(Race Mediator)[https://github.com/comunica/comunica/tree/master/packages/mediator-race],
+[Race Mediator](https://github.com/comunica/comunica/tree/master/packages/mediator-race),
 that picks the first actor that returns a result,
-or the (Number Mediator)[https://github.com/comunica/comunica/tree/master/packages/mediator-number],
+or the [Number Mediator](https://github.com/comunica/comunica/tree/master/packages/mediator-number),
 that chooses the Actor with the lowest or highest cost, depending on the configuration.
 
 ### Mediator Types
@@ -150,7 +150,7 @@ we make use of Mediator Types.
 These are simple interfaces that determine the type of values
 an Actor returns to a mediator when tested.
 An example of this is
-(mediatortype-time)[https://github.com/comunica/comunica/tree/master/packages/mediatortype-time],
+[mediatortype-time](https://github.com/comunica/comunica/tree/master/packages/mediatortype-time),
 which contains the following interface:
 
 ```typescript
