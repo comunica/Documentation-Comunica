@@ -69,6 +69,7 @@ instead of having to rewrite some of the core functionality.
 
 ## Naming Conventions
 We use the following naming convenient for (NPM) modules:
+
 * Bus types: `@comunica/bus-[name-of-bus-type]`
 * Mediator types: `@comunica/mediatortype-[name-of-mediator-type]`
 * Mediators: `@comunica/mediator-[name-of-mediator]`
