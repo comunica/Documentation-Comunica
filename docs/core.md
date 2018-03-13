@@ -2,15 +2,19 @@
 
 ![Communication overview](actor-mediator-bus.svg)
 
-There are 3 core components of Comunica.
+There are 3 core components types in Comunica: *Actors*, *Mediators* and *Buses*.
 The internal communication of Comunica works by combining those components:
 
 1. An Actor requests a response through a Mediator.
-2. The Mediator *tests* all Actors in its Bus.
-3. Every Actor responds with metadata describing the estimated costs for answering the request.
-4. Based on this list of metadata, the Mediator picks the best Actor.
-5. That Actor executes the request.
-6. The resulting response gets returned to the original request.
+2. The Mediator *tests* all Actors in its corresponing Bus.
+3. Every Actor responds with metadata describing the (estimated) costs for answering the request.
+4. Based on this list of metadata, the Mediator picks the *best* Actor.
+5. The selected Actor executes the request.
+6. The resulting response is returned to the original request.
+
+!!! note
+    No single *best* Actor exists in all cases.
+    Different mediators can exist to determine the *best* Actor under different circumstances or configurations.
 
 ## Actor
 
@@ -18,7 +22,7 @@ Actors are the main components that will be executing the required actions.
 Most programs will have several Actors executing their actions
 and sending their results to each other through the Buses.
 The following is a simplified view of the Actor interface.
-For a full view we reference the JSDoc documentation (TODO: make that).
+For a full view we reference the [JSDoc documentation](https://comunica.github.io/comunica/classes/_core_lib_actor_.actor.html).
 
 ```typescript
 abstract class Actor<I, T, O> {
@@ -38,7 +42,7 @@ With I, T and O corresponding to the expected Input, TestResult and Output forma
 As can be seen, every Actor has a name,
 and a bus it is subscribed to.
 
-Besides the constructor, there are 2 functions that every Actor has to inherit: *test* and *run*.
+Besides the constructor, there are 2 functions that every Actor has to implement: *test* and *run*.
 
 The *test* function is used by Mediators to determine which Actor to call.
 As mentioned previously, Mediators have the job of choosing
@@ -49,9 +53,9 @@ The Mediator provides the input of the task to each Actor.
 Each of those Actors then needs to respond with a metadata object
 indicating the costs required to solve that task,
 or throw an error if they are unable to provide results for the given input.
-What these "costs" are, is left vague on purpose,
+What these _costs_ are, is left vague on purpose,
 allowing different Mediators to focus on different costs,
-such as total execution time, # http calls, etc.
+such as total execution time, number of http calls, etc.
 It is the responsibility of the Actor to provide decent estimates here.
 
 The *run* function corresponds to actually executing the task this Actor was made for.
@@ -64,7 +68,7 @@ A Bus is an aggregation of Actors,
 providing several helper functions.
 Since the tasks of a Bus are quite simple,
 it is usually not required to extend its functionality
-and can be instantiated directly if a new Bus is required.
+and can be instantiated directly via a Components.js config file if a new Bus is required.
 
 ```typescript
 class Bus<A, I, T, O> {
