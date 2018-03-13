@@ -1,14 +1,17 @@
 # Comunica
 
-This document provides an overview of the comunica project.
+This document provides a complete overview of the [Comunica project](https://github.com/comunica/comunica).
+
+_If you are only interested in executing SPARQL queries,
+please refer the [Comunica SPARQL Init Actor README](https://github.com/comunica/comunica/tree/master/packages/actor-init-sparql)._
 
 ## Overview
 Comunica provides a way to create a program by combining multiple independent building blocks.
 These building blocks get linked together based on configuration files,
 as defined by [Components.js](https://www.npmjs.com/package/lsd-components).
-The initial goal of Comunica is to provide a modular implementation
+The primary goal of Comunica is to provide a modular implementation
 of a [Triple Pattern Fragments Client](http://linkeddatafragments.org/software/),
-but the core can be used for all kinds of projects.
+but the core can be used for all kinds of projects that require modular problem-solving.
 Additionally, new modules can be added to support more than just the basic TPF implementation.
 
 ## Building blocks
@@ -36,8 +39,16 @@ The interfaces for these main 3 components are defined in the
 [`core` module](core.md) of Comunica.
 All other modules extend the interfaces provided by `core`.
 
+!!! note
+    All building blocks are available in separate (npm) modules, for which we use the following naming convention:
+
+    * Bus types: `@comunica/bus-[name-of-bus-type]`
+    * Mediator types: `@comunica/mediatortype-[name-of-mediator-type]`
+    * Mediators: `@comunica/mediator-[name-of-mediator]`
+    * Actors: `@comunica/actor-[name-of-bus-type]-[name-of-actor]`
+
 ## Components.js
-[Components.js](https://www.npmjs.com/package/lsd-components) is a library that allows 
+[Components.js](https://www.npmjs.com/package/lsd-components) is a dependency injection library that allows
 the instantiating and interlinking of software components instead of having to do this in the code itself.
 This way the components can be built (and linked) independently.
 For a full explanation of how this works we refer to the corresponding
@@ -47,16 +58,18 @@ All configuration files are written in RDF, specifically JSON-LD,
 allowing people more familiar with JSON than RDF to also quickly pick up the framework.
 
 Several config files are required when using Components.js:
+
  * A config file for every JavaScript class that gets exposed in the module.
  * A config file combining all the exposed classes.
  * A config file defining the instantiations and how they get combined.
 
-Since this is RDF data these files could also be combined into one file
-but this is the standard way of working.
-Specific examples will be shown in the later sections.
+!!! note
+    The Components.js convention is to split up these config file.
+    However, this is not a requirement. As these just contain RDF, they could be split up or combined in any way.
+    Specific examples will be shown in the later sections.
 
-## Triple Pattern Fragments client
-The main idea behind Comunica is to create a modular [TPF client](http://linkeddatafragments.org/software/).
+## Motivation: a modular TPF client
+The main idea behind Comunica is to create a modular [Triple Pattern Fragments client](http://linkeddatafragments.org/software/).
 Many [additions and changes](http://linkeddatafragments.org/publications/) have already been made
 based on the original TPF idea.
 Combining some of these ideas together and keeping them up to date with the main client implementation
@@ -66,11 +79,3 @@ greatly reducing the dependencies on each other and allowing for easier interope
 E.g., an update that provides faster results for triple existence checks can now be used
 by adding a module that handles those kinds of patterns,
 instead of having to rewrite some of the core functionality.
-
-## Naming Conventions
-We use the following naming convenient for (NPM) modules:
-
-* Bus types: `@comunica/bus-[name-of-bus-type]`
-* Mediator types: `@comunica/mediatortype-[name-of-mediator-type]`
-* Mediators: `@comunica/mediator-[name-of-mediator]`
-* Actors: `@comunica/actor-[name-of-bus-type]-[name-of-actor]`
