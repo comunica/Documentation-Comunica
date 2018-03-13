@@ -16,6 +16,10 @@ such as the [configurations of `actor-init-sparql`](https://github.com/comunica/
     Throughout this document, we reuse the [terminology of Components.js](http://componentsjs.readthedocs.io/en/latest/getting_started/basics/terminology/)
     where a *component* is a class that can be instantiated, and a *module* is a collection of components.
 
+!!! note
+    These configuration files are Components.js configuration files.
+    As such, the more advanced features from [Components.js](http://componentsjs.readthedocs.io/en/latest/configuration/configurations/semantic/) can be used here as well.
+
 ## Runner
 Every Comunica engine is started from a
 [Runner](https://github.com/comunica/comunica/tree/master/packages/runner).
