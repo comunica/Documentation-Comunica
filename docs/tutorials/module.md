@@ -1,4 +1,4 @@
-# Writing your own module
+# Creating your own module
 
 Here we will provide an example of a Comunica module,
 showing all the components necessary so a module can be used.

@@ -1,4 +1,4 @@
-# Writing a Comunica project configuration
+# Creating a Comunica project configuration
 
 Before a Comunica instance can be created,
 a configuration file is needed.
