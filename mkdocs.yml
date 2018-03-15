@@ -4,7 +4,6 @@ pages:
   - Tutorials:
     - Executing a SPARQL query: 'tutorials/sparql.md'
     - Including Comunica in your project: 'tutorials/including-comunica.md'
-    - Triple Pattern Fragments: 'tutorials/tpf.md'
     - Creating a configuration: 'tutorials/configuration.md'
     - Creating a module: 'tutorials/module.md'
   - Actor categories:

@@ -21,15 +21,14 @@ there are a few requirements:
 
 A manual on how configurations are created can be found [here](configuration.md).
 
-TODO: Everything below this seems a big vague, not sure what the difference between the two is.
-
 Depending on your needs there are multiple options:
 you can do a single run of a configuration,
 or you can set up an instance based on the configuration that can handle requests.
 Both options require use of the `Setup` class from the Runner package.
 
 ### Single run
-The `Setup.run` function takes a configuration,
+The [`Setup.run`](https://comunica.github.io/comunica/classes/_runner_lib_setup_.setup.html#run)
+function takes a configuration,
 loads all the corresponding modules,
 run the instance on the given input,
 and return the output.
@@ -43,9 +42,6 @@ The `run` function has the following interface:
 public static async run(configResourceUrl: string, action: IActionInit, runnerUri?: string,
                         properties?: ISetupProperties): Promise<any>
 ```
-TODO: link to jsdoc here
-
-TODO: how good does this work with relative paths and stuff?
 
 * `configResourceUrl`: the path (or URL) to the configuration file.
 * `action`: the input for the 'init' Actor of the configuration.
@@ -57,38 +53,54 @@ The result of this call is a promise returning the result.
 
 ### Set up Runner instance
 
-TODO: could also link to actual code in git repo but line numbers can change
+In case you will need to do multiple calls to Comunica,
+you will want to set up a reusable instance,
+thereby not having to load in the configuration every time.
+For this we have the 
+[`Setup.instantiateComponent`](https://comunica.github.io/comunica/classes/_runner_lib_setup_.setup.html#instantiatecomponent) 
+function.
 
-The easiest way to explain how to set up a Runner instance
-is by showing the source of the `Setup.run` function:
+The interface is quite similar to the `run` function:
 ```typescript
-  public static async run(configResourceUrl: string, action: IActionInit, runnerUri?: string,
-                          properties?: ISetupProperties): Promise<any> {
-    if (!runnerUri) {
-      runnerUri = 'urn:comunica:my';
-    }
-
-    const runner: Runner = await Setup.instantiateComponent(configResourceUrl, runnerUri, properties);
-    await runner.initialize();
-    let output: IActorOutputInit[];
-    try {
-      output = await runner.run(action);
-    } catch (e) {
-      await runner.deinitialize();
-      throw e;
-    }
-    await runner.deinitialize();
-    return output;
-  }
+public static async instantiateComponent(configResourceUrl: string, runnerUri: string,
+                                           properties?: ISetupProperties): Promise<any>
 ```
 
-To set up your own Runner instance, a similar flow has to be followed:
+All parameters are the same as above, except `action` is missing,
+since that will be given separately once the instance is ready.
 
- 1. Set up the Runner using `Setup.instantiateComponent`
- 2. Intialize the Runner using `runner.initialize`
- 3. Get results with `runner.run`. This can be done multiple times!
- 4. When finished, deinitialize the runner with `runner.deinitialize`
+In this case the response is not the result of running an instance though,
+the result is the actual Runner instance you will make requests against:
+```typescript
+const runner: Runner = await Setup.instantiateComponent(configResourceUrl, runnerUri, properties);
+```
 
-The initialize/deiniatilize functions are required for certain actors
-that have certain actions that need to be run once,
-such as reading in files.
+Once you have your runner, you can use its `run` function to send actions:
+```typescript
+const output = await runner.run(action);
+```
+
+The difference with `Setup.run` is that this will be much more peformant
+if you execute multiple Comunica calls.
+
+#### Initialize and deinitialize
+Certain components have some actions that need to be executed once before they can be run,
+e.g., opening up connections, which then also need to be stopped once the process is finished.
+For this we have the `initialize` and `deinitialize` functions.
+This means that both of these need to be called once each on the runner object,
+`runner.initialize()` before the first call,
+and `runner.deinitialize()` after the last call to clean up.
+
+So in summary, your code should look similar to this:
+```typescript
+  const runner = await Setup.instantiateComponent(configResourceUrl, runnerUri, properties);
+  runner.initialize();
+  
+  const result1 = await runner.run(action1);
+  const result2 = await runner.run(action2);
+  const result3 = await runner.run(action3);
+  
+  runner.deinitialize();
+```
+
+### TODO: Static compilation
