@@ -6,9 +6,25 @@ There are 2 options to include Comunica in your project as a dependency:
 [`actor-init-sparql`](https://github.com/comunica/comunica/tree/master/packages/actor-init-sparql).
 2. Composing your own combination of Comunica modules.
 
-The first instance is the easiest one and will usually only require a single install,
+The first option is the easiest one and will usually only require a single install,
 such as `npm install @comunica/actor-init-sparql`.
-Please refer to the READMEs of these pre-composed modules for more information on their installation.
+In this case, SPARQL querying within your application can be done as follows:
+
+```javascript
+const newEngine = require('@comunica/actor-init-sparql').newEngine;
+
+const myEngine = newEngine();
+myEngine.query('SELECT * { ?s ?p <http://dbpedia.org/resource/Belgium>. ?s ?p ?o } LIMIT 100',
+  { sources: [ { type: 'hypermedia', value: 'http://fragments.dbpedia.org/2015/en' } ] })
+  .then(function (result) {
+    result.bindingsStream.on('data', function (data) {
+      console.log(data.toObject());
+    });
+  });
+```
+
+Please refer to the [README of `actor-init-sparql`](https://github.com/comunica/comunica/tree/master/packages/actor-init-sparql#usage-within-application)
+or other pre-composed modules for more information on their installation.
 
 ## Custom combinations
 
