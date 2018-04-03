@@ -15,7 +15,9 @@ We describe all currently available context and metadata entries hereafter.
 
 | Name         | Related Actors | Description |
 | ------------ | -------------- | ----------- |
-| `entrypoint` | `@comunica/actor-rdf-resolve-quad-pattern-qpf` | The URL of a TPF/QPF entrypoint, such as `http://fragments.dbpedia.org/2016-04/en` |
+| `sources` | `@comunica/actor-rdf-resolve-quad-pattern-qpf` | A list of source objects and their type, e.g. `{ type: 'hypermedia', value: 'http://fragments.dbpedia.org/2016-04/en'}` |
+
+Currently supported types are `sparql`, `hypermedia` (for TPF and similar variants), `hdt` (for a local HDT file) and `file` (for a local turtle file).
 
 ## Metadata Entries
 
