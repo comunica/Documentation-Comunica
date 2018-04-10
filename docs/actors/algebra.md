@@ -3,8 +3,8 @@
 Query operations are a key element in comunica for query evaluation.
 These operations are based on SPARQL Algebra, and use the TypeScript types provided by [SPARQLAlgebra.js](https://github.com/joachimvh/SPARQLAlgebra.js).
 
-`@comunica/bus-query-operation` is the bus on which actors can subscribe to perform certain query operations.
-`@comunica/actor-query-operation-quadpattern` is for instance responsible for evaluating quad patterns.
+[`@comunica/bus-query-operation`](https://github.com/comunica/comunica/tree/master/packages/bus-query-operation) is the bus on which actors can subscribe to perform certain query operations.
+[`@comunica/actor-query-operation-quadpattern`](https://github.com/comunica/comunica/tree/master/packages/actor-query-operation-quadpattern) is for instance responsible for evaluating quad patterns.
 
 Operations take a certain operation as input, together with an optional _context_.
 The output is a [`BindingsStream`](https://github.com/comunica/comunica/blob/master/packages/bus-query-operation/lib/Bindings.ts#L13), a set of variable names that occur in the bindings stream and optional _metadata_.

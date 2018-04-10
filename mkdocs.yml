@@ -11,7 +11,7 @@ pages:
     - Algebra actors: 'actors/algebra.md'
     - Init actors: 'actors/init.md'
     - Join actors: 'actors/join.md'
-    - Metadata extractors: 'actors/metadata.md'
+    - Metadata actors: 'actors/metadata.md'
     - Quad pattern resolvers: 'actors/quads.md'
     - Serialization actors: 'actors/serialization.md'
 
