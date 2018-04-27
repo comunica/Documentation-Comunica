@@ -46,8 +46,8 @@ Both options require use of the `Setup` class from the Runner package.
 The [`Setup.run`](https://comunica.github.io/comunica/classes/_runner_lib_setup_.setup.html#run)
 function takes a configuration,
 loads all the corresponding modules,
-run the instance on the given input,
-and return the output.
+runs the instance on the given input,
+and returns the output.
 
 This has the advantage of being easy to set up,
 only a single call is required,
