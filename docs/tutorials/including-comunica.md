@@ -67,6 +67,17 @@ public static async run(configResourceUrl: string, action: IActionInit, runnerUr
 
 The result of this call is a promise returning the result.
 
+#### Example
+Assume we want to do a single run of the `@comunica/actor-init-sparql` actor, this would look something as follows:
+
+```typescript
+const Setup = require('@comunica/runner').Setup;
+let promise = Setup.run('configs/config-default.json',
+    { argv: ['-q', 'SELECT * WHERE { ?s <http://www.w3.org/2000/01/rdf-schema#label> ?o } LIMIT 100'] });
+
+promise.then(out => out[0].stdout.pipe(process.stdout)).catch(console.error);
+```
+
 ### Set up Runner instance
 
 In case you will need to do multiple calls to Comunica,
