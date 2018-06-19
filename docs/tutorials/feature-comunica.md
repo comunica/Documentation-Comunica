@@ -153,4 +153,10 @@ Make sure to expose this binary by including a `"bin"` entry in your `package.js
 
 A real-world example of this process can be found here: https://github.com/rdfostrich/comunica-actor-init-sparql-ostrich
 
+!!! note
+    As external project lose the monorepo's advantage of always being up-to-date with its (Comunica) dependencies.
+    In order to automatically be up-to-date with the latest Comunica versions,
+    we suggest using an automatic dependency manager such as [Greenkeper](https://greenkeeper.io/).
+    Greenkeeper will automatically send pull requests to your project when Comunica updates occur that fall outside of your supported version range.
+
 
