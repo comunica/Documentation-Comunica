@@ -4,6 +4,7 @@ pages:
   - Tutorials:
     - Executing a SPARQL query: 'tutorials/sparql.md'
     - Including Comunica in your project: 'tutorials/including-comunica.md'
+    - Developing a feature for Comunica: 'tutorials/feature-comunica.md'
     - Creating a configuration: 'tutorials/configuration.md'
     - Creating a module: 'tutorials/module.md'
   - Actor categories:
