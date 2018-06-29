@@ -130,7 +130,17 @@ You can use the generators as mentioned in the first part of this tutorial for g
 
 ### Creating a runner engine
 
-If you want to provide an easy-to-use binary for running your new feature in Comunica SPARQL, you can extend the [Comunica SPARQL config file](https://github.com/comunica/comunica/blob/master/packages/actor-init-sparql/config/config-default.json), and wrap your own binary around it.
+If you want to provide an easy-to-use binary for running your new feature in Comunica SPARQL, you can extend the [Comunica SPARQL config file](https://github.com/comunica/comunica/blob/master/packages/actor-init-sparql/config/config-default.json).
+
+A real-world example of this process can be found here: https://github.com/rdfostrich/comunica-actor-init-sparql-ostrich and https://github.com/comunica/comunica/tree/master/packages/actor-init-sparql-file
+
+!!! note
+    As external project lose the monorepo's advantage of always being up-to-date with its (Comunica) dependencies.
+    In order to automatically be up-to-date with the latest Comunica versions,
+    we suggest using an automatic dependency manager such as [Greenkeper](https://greenkeeper.io/).
+    Greenkeeper will automatically send pull requests to your project when Comunica updates occur that fall outside of your supported version range.
+
+#### Creating a binary
 
 Assuming your config file is located at `config/config-default.json`, then your binary `bin/run.ts` could look like this:
 
@@ -151,12 +161,95 @@ Make sure to expose this binary by including a `"bin"` entry in your `package.js
 ...
 ```
 
-A real-world example of this process can be found here: https://github.com/rdfostrich/comunica-actor-init-sparql-ostrich
+#### Exposing a programmatic API
 
-!!! note
-    As external project lose the monorepo's advantage of always being up-to-date with its (Comunica) dependencies.
-    In order to automatically be up-to-date with the latest Comunica versions,
-    we suggest using an automatic dependency manager such as [Greenkeper](https://greenkeeper.io/).
-    Greenkeeper will automatically send pull requests to your project when Comunica updates occur that fall outside of your supported version range.
+If you want to expose the same functionality as the SPARQL init actor for creating an engine,
+but using your customized config file, create the following `index.ts` file:
 
+```typescript
+export {newEngine} from './index-browser';
 
+import {ActorInitSparql} from '@comunica/actor-init-sparql/lib/ActorInitSparql-browser';
+import {IQueryOptions, newEngineDynamicArged} from "@comunica/actor-init-sparql/lib/QueryDynamic";
+
+/**
+ * Create a new dynamic comunica engine from a given config file.
+ * @param {IQueryOptions} options Optional options on how to instantiate the query evaluator.
+ * @return {Promise<QueryEngine>} A promise that resolves to a fully wired comunica engine.
+ */
+export function newEngineDynamic(options?: IQueryOptions): Promise<ActorInitSparql> {
+  return newEngineDynamicArged(options || {}, __dirname, __dirname + '/config/config-default.json');
+}
+```
+
+As you can see, this file extends from a `index-browser.ts` file,
+which is the browser-safe variant of this file that can be used in tools such as [Webpack](https://webpack.js.org/).
+This file should look like this:
+```typescript
+import {ActorInitSparql} from '@comunica/actor-init-sparql/lib/ActorInitSparql-browser';
+
+/**
+ * Create a new comunica engine from the default config.
+ * @return {ActorInitSparql} A comunica engine.
+ */
+export function newEngine(): ActorInitSparql {
+  return require('./engine-default.js');
+}
+```
+
+This file in turn depends on a `engine-default.js` file,
+which is the _compiled_ version of your config file,
+where all dependency injection steps have been done beforehand.
+This avoids the dependency injection overhead in cases where you only need the default config file.
+In order to create this file, make sure that you add the following script entry to your `package.json` file:
+
+```json
+{
+    ...
+    "scripts": {
+        ...
+        "prepare": "comunica-compile-config config/config-default.json > engine-default.js",
+        ...
+    },
+  ...
+}
+```
+
+Finally, add the following entries to your `package.json` file:
+```json
+{
+    ...
+    "main": "index.js",
+    "typings": "index",
+    ...
+}
+```
+
+#### Preparing a browser version using Webpack
+
+Making a browser-safe version of your engine can be done easily by extending the Webpack config file from the SPARQL init actor.
+
+!!!note
+    This assumes that you have create an `index-browser.ts` file as explained in the previous section.
+
+To do this, create the following `webpack.config.js` file:
+```javascript
+const path = require('path');
+const superConfig = require('@comunica/actor-init-sparql/webpack.config');
+superConfig.entry = [ 'babel-polyfill', path.resolve(__dirname, 'index-browser.js') ];
+superConfig.output.path = __dirname;
+module.exports = superConfig;
+```
+
+You can define an easy-to-use browser script by adding the following entry to your `package.json` file:
+```json
+{
+    ...
+    "scripts": {
+        ...
+        "browser": "npm run prepare && \"../../node_modules/webpack/bin/webpack.js\" --config webpack.config.js --mode production"
+        ...
+    },
+  ...
+}
+```
