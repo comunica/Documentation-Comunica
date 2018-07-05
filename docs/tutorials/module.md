@@ -83,7 +83,7 @@ This Bus can be found in `components/Bus/Http.jsonld`.
 
 ```json
 {
-  "@context": "https://linkedsoftwaredependencies.org/contexts/comunica-bus-http.jsonld",
+  "@context": "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-http/^1.0.0/components/context.jsonld",
   "@id": "cbh:Bus/Http",
   "@type": "cc:Bus",
   "comment": "A bus for HTTP request events"
@@ -99,8 +99,8 @@ and allowing it to be instantiated by Components.js.
 ```json
 {
   "@context": [
-    "https://linkedsoftwaredependencies.org/contexts/comunica-bus-http.jsonld",
-    "https://linkedsoftwaredependencies.org/contexts/comunica-core.jsonld"
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-http/^1.0.0/components/context.jsonld",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/core/^1.0.0/components/context.jsonld"
   ],
   "@id": "npmd:@comunica/bus-http",
   "components": [
@@ -146,7 +146,7 @@ we have to define [a module in the Components.js format](http://componentsjs.rea
 For example, these are the contents of the `components/components.jsonld` file:
 ```json
 {
-  "@context": "https://linkedsoftwaredependencies.org/contexts/comunica-bus-http.jsonld",
+  "@context": "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-http/^1.0.0/components/context.jsonld",
   "@id": "npmd:@comunica/bus-http",
   "@type": "Module",
   "requireName": "@comunica/bus-http",
@@ -163,7 +163,7 @@ For example:
 ```json
 {
   "@context": [
-    "https://linkedsoftwaredependencies.org/contexts/comunica-core.jsonld",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/core/^1.0.0/components/context.jsonld",
     {
       "cbh": "npmd:@comunica/bus-http/",
 
@@ -181,7 +181,7 @@ Finally, as a requirement of Components.js, the module and context file MUST be 
     "lsd:module": "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-http",
     "lsd:components": "components/components.jsonld",
     "lsd:contexts": {
-        "https://linkedsoftwaredependencies.org/contexts/comunica-bus-http.jsonld": "components/context.jsonld"
+        "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-http/^1.0.0/components/context.jsonld": "components/context.jsonld"
     },
     ...
 }
@@ -240,8 +240,8 @@ This configuration is quite similar to the others:
 ```json
 {
   "@context": [
-    "https://linkedsoftwaredependencies.org/contexts/comunica-actor-http-node-fetch.jsonld",
-    "https://linkedsoftwaredependencies.org/contexts/comunica-bus-http.jsonld"
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/actor-http-node-fetch/^1.0.0/components/context.jsonld",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-http/^1.0.0/components/context.jsonld"
   ],
   "@id": "npmd:@comunica/actor-http-node-fetch",
   "components": [

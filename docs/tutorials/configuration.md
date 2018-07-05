@@ -30,30 +30,27 @@ which is the `init` Bus by default. All other actors are linked to the Runner as
 ```json
 {
   "@context": [ 
-    "https://linkedsoftwaredependencies.org/contexts/comunica-runner.jsonld",
-    "https://linkedsoftwaredependencies.org/contexts/comunica-core.jsonld",
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/runner/^1.0.0/components/context.jsonld"
+    "https://linkedsoftwaredependencies.org/bundles/npm/@comunica/core/^1.0.0/components/context.jsonld"
     ...
   ],
-  "@graph": [
-    {
-      "@id": "urn:comunica:my",
-      "@type": "Runner",
-      "actors": [
-          {
-            "@id": "ex:myInitActor",
-            "@type": "ActorThatInitializes"
-          },
-          {
-            "@id": "ex:myRdfParserN3",
-            "@type": "ActorRdfParseN3"
-          },
-          {
-            "@id": "ex:myRdfParserJsonLd",
-            "@type": "ActorRdfParseJsonLd",
-            "priorityScale": 0.9
-          },
-          ...
-      ]
+  "@id": "urn:comunica:my",
+  "@type": "Runner",
+  "actors": [
+      {
+        "@id": "ex:myInitActor",
+        "@type": "ActorThatInitializes"
+      },
+      {
+        "@id": "ex:myRdfParserN3",
+        "@type": "ActorRdfParseN3"
+      },
+      {
+        "@id": "ex:myRdfParserJsonLd",
+        "@type": "ActorRdfParseJsonLd",
+        "priorityScale": 0.9
+      },
+      ...
 }
 ```
 
@@ -133,7 +130,7 @@ They can therefore directly be instantiated by the default Bus implementation.
 Many Buses have already been pre-defined, such as the `cbqo:Bus/QueryOperation` Bus:
 ```json
 {
-  "@context": "https://linkedsoftwaredependencies.org/contexts/comunica-bus-query-operation.jsonld",
+  "@context": ""https://linkedsoftwaredependencies.org/bundles/npm/@comunica/bus-query-operation/^1.0.0/components/context.jsonld"",
   "@id": "cbqo:Bus/QueryOperation",
   "@type": "cc:Bus",
   "comment": "A comunica bus for query-operation events."
