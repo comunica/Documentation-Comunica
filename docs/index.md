@@ -48,7 +48,7 @@ All other modules extend the interfaces provided by `core`.
     * Actors: `@comunica/actor-[name-of-bus-type]-[name-of-actor]`
 
 ## Components.js
-[Components.js](https://www.npmjs.com/package/lsd-components) is a dependency injection library that allows
+[Components.js](https://www.npmjs.com/package/componentsjs) is a dependency injection library that allows
 the instantiating and interlinking of software components instead of having to do this in the code itself.
 This way the components can be built (and linked) independently.
 For a full explanation of how this works we refer to the corresponding
