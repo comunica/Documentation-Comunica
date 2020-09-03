@@ -1,5 +1,7 @@
 # Comunica
 
+## DEPRECATED: This documentation has been replaced with [a brand new website](https://comunica.dev/docs/)
+
 This document provides a complete overview of the [Comunica project](https://github.com/comunica/comunica).
 
 _If you are only interested in executing SPARQL queries,
